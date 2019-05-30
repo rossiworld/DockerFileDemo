@@ -1,0 +1,58 @@
+Crucial Commands for Docker:
+
+docker-machine env
+docker info
+docker images
+docker pull image_name
+docker ps
+docker build -t roshanshah/aspnetcore .
+docker run -d -p 8080:5000 %cd%:/app roshanshah/aspnetcore
+docker run -d -p 8080:5000 -v  $(pwd):/app roshanshah/aspnetcore
+docker ps -a
+docker rm container_id
+docker rmi image_id
+docker run image_name
+docker start container containerid
+docker start image_name
+docker push roshanshah/roshanshah:myfirstimagepush
+docker network ls
+docker network create --driver bridge isolated_network
+docker network inspect isolated_network
+docker run -d --net=isolated_network --name aspnetcoreapp -p 5000:5000 aspnetcoredemos
+docker run --rm -d -p 5000:5000 aspnetcoredemosprod:latest
+docker run -d --name my-postgres postgres
+docker run -d -p 5000:5000 --link my-postgres:postgres aspnetcoredemosprod:latest
+
+Pushing an image to Azure Registry and then creating container on the basis of this commands
+
+docker login
+docker login rshah.azurecr.io
+docker build -t rshah.azurecr.io/aspnetcoredockerdemo:latest .
+docker push rshah.azurecr.io/aspnetcoredockerdemo:latest
+
+Push Docker images to Azure Container Registry using Azure CLI:
+
+Note: For this you need to have azure CLI installed on your machine.
+
+1. Authenticate your Azure account using --> az login
+2. Create azure resource group using command --> az group create --name DockerDemo --location westindia   (here DockerDemo is resource group name)
+3. Create azure container registry using command --> az acr create --resource-group DockerDemo --name rshah --sku Basic --admin-enabled true      (here name of container registry is rshah)
+4. Login to azure container registry using command --> az acr login --name rshah 
+5. Build docker image using command --> docker tag DockerDemo rshah/aspnetcoredemosprod:latest
+6. Push image to azure container registry using command --> docker push rshah.azurecr.io/aspnetcoredockerdemo:latest
+
+
+Building, running, and continuously deploying docker containers on azure app service:
+
+Follow this link for the same --> https://mikepfeiffer.io/azure-docker-containers.html
+
+
+
+
+
+
+
+
+
+
+
